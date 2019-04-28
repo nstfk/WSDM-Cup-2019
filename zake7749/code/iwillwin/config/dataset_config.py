@@ -1,6 +1,6 @@
 import os
 
-DATASET_ROOT = "../data/dataset/"
+DATASET_ROOT = "/content/gdrive/My Drive/MedSentEval/data/MEDNLI_new"
 DATASET_TRAIN_PATH = os.path.join(DATASET_ROOT, "train.csv")
 DATASET_TEST_PATH = os.path.join(DATASET_ROOT, "test.csv")
 
