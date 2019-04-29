@@ -333,7 +333,7 @@ def main():
 
     # dev
     eval_examples = processor.get_dev_examples(
-        args.data_dir, args.dev_subset)
+        args.data_dir)
     if args.dev_subset:
         eval_examples = eval_examples[0:args.dev_subset]
     eval_features = convert_examples_to_features(
