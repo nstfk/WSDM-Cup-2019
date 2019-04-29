@@ -9,6 +9,7 @@ import pickle
 import numpy as np
 import torch.nn.functional as F
 import pandas as pd
+from torch.nn import CrossEntropyLoss, MSELoss
 from tqdm import tqdm, trange
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, \
     SequentialSampler
