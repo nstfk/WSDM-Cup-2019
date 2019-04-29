@@ -5,7 +5,7 @@ from pytorch_pretrained_bert import BertModel
 from bert import util
 
 
-class PseudoLabelModel(PreTrainedBertModel):
+class PseudoLabelModel(BertPreTrainedModel):
 
     def __init__(self, config, num_labels=3):
         super().__init__(config)
