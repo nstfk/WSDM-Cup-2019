@@ -261,6 +261,11 @@ class MnliProcessor(DataProcessor):
         return self._create_examples(
             self._read_tsv(os.path.join(data_dir, "dev_matched.tsv")),
             "dev_matched")
+    
+    def get_test_examples(self, data_dir):
+    """See base class."""
+    return self._create_examples(
+        self._read_tsv(os.path.join(data_dir, "test_matched.tsv")), "test")
 
     def get_labels(self):
         """See base class."""
@@ -275,7 +280,11 @@ class MnliProcessor(DataProcessor):
             guid = "%s-%s" % (set_type, line[0])
             text_a = line[8]
             text_b = line[9]
-            label = line[-1]
+            if set_type == "test":
+                label = "contradiction'
+            else:
+                label = tokenization.convert_to_unicode(line[1])
+      
             examples.append(
                 InputExample(guid=guid, text_a=text_a, text_b=text_b,
                              label=label))
