@@ -399,6 +399,43 @@ class WSDMPseudoProcessor(DataProcessor):
                 InputExample(guid=guid, text_a=text_a, text_b=text_b,
                              label=label))
         return examples
+    
+ class MNLIseudoProcessor(DataProcessor):
+    
+    def get_train_examples(self, data_dir, subset=None):
+        data = pd.read_csv(os.path.join(data_dir, 'train.csv'))
+        if subset:
+            data = data.iloc[0:subset]
+        return self.create_examples(data, 'train')
+
+    def get_dev_examples(self, data_dir, subset=None):
+        data = pd.read_csv(os.path.join(data_dir, 'dev.csv'))
+        if subset:
+            data = data.iloc[0:subset]
+        return self.create_examples(data, 'dev')
+
+    def get_test_examples(self, data_dir):
+        data = pd.read_csv(os.path.join(data_dir, 'test.csv'))
+        return self.create_examples(data, 'test')
+
+    def get_labels(self):
+        """See base class."""
+        return ["contradiction", "entailment", "neutral"]
+
+    @staticmethod
+    def create_examples(data, set_type):
+        examples = []
+        for i, row in data.iterrows():
+            guid = row['id']
+            text_a = row['sentence1']
+            text_b = row['sentence2']
+            if not isinstance(text_b, str):
+                text_b = ''
+            label = [row['contradiction'], row['entailment'], row['neutral']]
+            examples.append(
+                InputExample(guid=guid, text_a=text_a, text_b=text_b,
+                             label=label))
+        return examples
 
 
 class ARCTProcessor(DataProcessor):
