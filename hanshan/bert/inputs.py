@@ -115,18 +115,18 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
             logger.info("*** Example ***")
             logger.info("guid: %s" % (example.guid))
             logger.info("tokens: %s" % " ".join(
-                    [str(x) for x in tokens]))
+                [str(x) for x in tokens]))
             logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
             logger.info("input_mask: %s" % " ".join([str(x) for x in input_mask]))
             logger.info(
-                    "segment_ids: %s" % " ".join([str(x) for x in segment_ids]))
+                "segment_ids: %s" % " ".join([str(x) for x in segment_ids]))
             logger.info("label: %s (id = %s)" % (example.label, label_id))
 
         features.append(
-                InputFeatures(input_ids=input_ids,
-                              input_mask=input_mask,
-                              segment_ids=segment_ids,
-                              label_id=label_id))
+            InputFeatures(input_ids=input_ids,
+                          input_mask=input_mask,
+                          segment_ids=segment_ids,
+                          label_id=label_id))
     return features
 
 
@@ -261,7 +261,7 @@ class MnliProcessor(DataProcessor):
         return self._create_examples(
             self._read_tsv(os.path.join(data_dir, "dev_matched.tsv")),
             "dev_matched")
-    
+
     def get_test_examples(self, data_dir):
         """See base class."""
         return self._create_examples(
@@ -284,7 +284,7 @@ class MnliProcessor(DataProcessor):
                 label = "contradiction"
             else:
                 label = line[-1]
-      
+
             examples.append(
                 InputExample(guid=guid, text_a=text_a, text_b=text_b,
                              label=label))
@@ -325,16 +325,16 @@ class WSDMProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir, subset=None):
         data = self._read_tsv(os.path.join(data_dir, 'train.csv'),
-            delimiter=',',
-            quotechar='"')
+                              delimiter=',',
+                              quotechar='"')
         if subset:
             data = data[0:subset]
         return self._create_examples(data, 'train')
 
     def get_dev_examples(self, data_dir, subset=None):
         data = self._read_tsv(os.path.join(data_dir, 'dev.csv'),
-            delimiter=',',
-            quotechar='"')
+                              delimiter=',',
+                              quotechar='"')
         if subset:
             data = data[0:subset]
         return self._create_examples(data, 'train')
@@ -399,9 +399,9 @@ class WSDMPseudoProcessor(DataProcessor):
                 InputExample(guid=guid, text_a=text_a, text_b=text_b,
                              label=label))
         return examples
-    
- class MNLIseudoProcessor(DataProcessor):
-    
+
+
+class MNLIPseudoProcessor(DataProcessor):
     def get_train_examples(self, data_dir, subset=None):
         data = pd.read_csv(os.path.join(data_dir, 'train.csv'))
         if subset:
