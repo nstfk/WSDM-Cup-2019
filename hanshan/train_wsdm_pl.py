@@ -196,6 +196,7 @@ def main():
         'wsdm': WSDMProcessor,
         'arct': ARCTProcessor,
         'wsdm_pseudo': WSDMPseudoProcessor,
+        'mnli_pseudo': MNLIPseudoProcessor,
     }
 
     if args.local_rank == -1 or args.no_cuda:
