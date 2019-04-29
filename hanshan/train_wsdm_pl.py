@@ -52,7 +52,7 @@ def tune(model, epoch, eval_dataloader, device, saver, run_name, tune_losses,
 
     if save_preds:
         probs = np.concatenate(probs, axis=0)
-        probs = pd.DataFrame(probs, columns=['agreed', 'disagreed', 'unrelated'])
+        probs = pd.DataFrame(probs, columns=["contradiction", "entailment", "neutral"])
         probs.to_csv('../zake7749/data/high_ground/fine_tuned_bert.csv', index=False)
 
     print('%s results' % _type)
