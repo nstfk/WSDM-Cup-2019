@@ -1,6 +1,6 @@
 """WSDM specific models."""
 from torch import nn
-from pytorch_pretrained_bert.modeling import PreTrainedBertModel
+from pytorch_pretrained_bert.modeling import BertPreTrainedModel
 from pytorch_pretrained_bert import BertModel
 from bert import util
 
