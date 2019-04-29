@@ -235,6 +235,7 @@ def main():
 
     processor = processors[task_name]()
     label_list = processor.get_labels()
+    num_labels = len(label_list)
 
     tokenizer = BertTokenizer.from_pretrained(args.bert_model)
 
