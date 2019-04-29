@@ -404,11 +404,11 @@ def main():
                 loss, logits = model(
                     input_ids, segment_ids, input_mask, label_ids)
                 '''
-                logits = logits.detach().numpy()
+                logits = logits.detach().cpu().numpy()
                 #print(logits)
                 #print(label_ids)
                 tmp_train_accuracy = accuracy(logits,
-                                              label_ids.detach().numpy())
+                                              label_ids.detach().cpu().numpy())
                 train_accuracy += tmp_train_accuracy
                 train_accs.append(train_accuracy)
 
