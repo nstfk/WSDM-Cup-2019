@@ -300,7 +300,7 @@ def main():
     # Load all data first
 
     # train
-    print(train_examples)
+    #print(train_examples)
     train_features = convert_examples_to_features(
         train_examples, label_list, args.max_seq_length, tokenizer)
     
