@@ -36,9 +36,9 @@ def tune(model, eval_dataloader, device, saver, run_name, tune_accs):
                 loss, logits = model(
                     input_ids, segment_ids, input_mask, label_ids)
             nb_eval_examples += label_ids.size(0)
-            logits = logits.detach_().cpu().numpy()
+            logits = logits.detach().cpu().numpy()
             tmp_eval_accuracy = accuracy(logits,
-                                         label_ids.detach_().cpu().numpy())
+                                         label_ids.detach().cpu().numpy())
             eval_loss += loss.mean().item()
             eval_accuracy += tmp_eval_accuracy
             nb_eval_steps += 1
@@ -271,11 +271,11 @@ def main():
     # Prepare optimizer
     if args.fp16:
         param_optimizer = [
-            (n, param.clone().detach_().to('cpu').float().requires_grad_()) \
+            (n, param.clone().detach().to('cpu').float().requires_grad_()) \
             for n, param in model.named_parameters()]
     elif args.optimize_on_cpu:
         param_optimizer = [
-            (n, param.clone().detach_().to('cpu').requires_grad_()) \
+            (n, param.clone().detach().to('cpu').requires_grad_()) \
             for n, param in model.named_parameters()]
     else:
         param_optimizer = list(model.named_parameters())
@@ -403,10 +403,10 @@ def main():
                 '''    
                 loss, logits = model(
                     input_ids, segment_ids, input_mask, label_ids)
-                logits = logits.detach_().cpu().numpy()
+                logits = logits.detach().cpu().numpy()
                 '''
                 tmp_train_accuracy = accuracy(logits,
-                                              label_ids.detach_().cpu().numpy())
+                                              label_ids.detach().cpu().numpy())
                 train_accuracy += tmp_train_accuracy
                 train_accs.append(train_accuracy)
 
@@ -465,7 +465,7 @@ def main():
                 with torch.no_grad():
                     logits = model(
                         input_ids, segment_ids, input_mask, None)
-                probs = F.softmax(logits, dim=1).detach_().cpu().numpy()
+                probs = F.softmax(logits, dim=1).detach().cpu().numpy()
                 probs.shape = (logits.size(0), 3)
                 preds.append(probs)
                 pbar.update()
