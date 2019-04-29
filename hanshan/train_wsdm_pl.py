@@ -187,7 +187,7 @@ def main():
                              'improve fp16 convergence.')
 
     args = parser.parse_args()
-    args.task_name = 'wsdm_pseudo'
+    #args.task_name = 'wsdm_pseudo'
 
     processors = {
         "cola": ColaProcessor,
@@ -243,7 +243,7 @@ def main():
         raise ValueError("Task not found: %s" % task_name)
 
     processor = processors[task_name]()
-    print(processor)
+    print(task_name,processor)
     label_list = processor.get_labels()
 
     tokenizer = BertTokenizer.from_pretrained(args.bert_model)
