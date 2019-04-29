@@ -243,9 +243,10 @@ def main():
         raise ValueError("Task not found: %s" % task_name)
 
     processor = processors[task_name]()
+    print(processor)
     label_list = processor.get_labels()
 
-    tokenizer = BertTokenizer.from_pretrained('bert-base-chinese')
+    tokenizer = BertTokenizer.from_pretrained(args.bert_model)
 
     train_examples = None
     num_train_steps = None
