@@ -13,7 +13,7 @@ from torch.utils.data.distributed import DistributedSampler
 import torch.nn.functional as F
 from bert import logger, wsdm
 from bert.inputs import MrpcProcessor, MnliProcessor, ColaProcessor, \
-    WSDMProcessor, ARCTProcessor, WSDMPseudoProcessor
+    WSDMProcessor, ARCTProcessor, WSDMPseudoProcessor, MNLIPseudoProcessor
 from bert.util import convert_examples_to_features, accuracy, \
     copy_optimizer_params_to_model, set_optimizer_params_grad, Saver
 from pytorch_pretrained_bert import BertTokenizer, BertAdam, \
