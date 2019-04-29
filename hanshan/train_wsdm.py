@@ -88,6 +88,12 @@ def main():
                         required=True,
                         help="The output directory where the model "
                              "checkpoints will be written.")
+    parser.add_argument("--results_dir",
+                        default=None,
+                        type=str,
+                        required=True,
+                        help="The output directory where the model "
+                             "results will be written.")
 
     # Other parameters
     parser.add_argument('--resume',
@@ -326,31 +332,31 @@ def main():
         train_data, sampler=train_sampler, batch_size=args.train_batch_size)
 
     # dev
-    #eval_examples = processor.get_dev_examples(
-    #    args.data_dir, args.dev_subset)
-    #if args.dev_subset:
-    #    eval_examples = eval_examples[0:args.dev_subset]
-    #eval_features = convert_examples_to_features(
-    #    eval_examples, label_list, args.max_seq_length, tokenizer)
-    #all_input_ids = torch.tensor(
-    #    [f.input_ids for f in eval_features],
-    #    dtype=torch.long)
-    #all_input_mask = torch.tensor(
-    #    [f.input_mask for f in eval_features],
-    #    dtype=torch.long)
-    #all_segment_ids = torch.tensor(
-    #    [f.segment_ids for f in eval_features],
-    #    dtype=torch.long)
-    #all_label_ids = torch.tensor(
-    #    [f.label_id for f in eval_features],
-    #    dtype=torch.long)
-    #eval_data = TensorDataset(
-    #    all_input_ids, all_input_mask, all_segment_ids,
-    #    all_label_ids)
-    #eval_sampler = SequentialSampler(eval_data)
-    #eval_dataloader = DataLoader(
-    #    eval_data, sampler=eval_sampler,
-    #    batch_size=args.eval_batch_size)
+    eval_examples = processor.get_dev_examples(
+        args.data_dir, args.dev_subset)
+    if args.dev_subset:
+        eval_examples = eval_examples[0:args.dev_subset]
+    eval_features = convert_examples_to_features(
+        eval_examples, label_list, args.max_seq_length, tokenizer)
+    all_input_ids = torch.tensor(
+        [f.input_ids for f in eval_features],
+        dtype=torch.long)
+    all_input_mask = torch.tensor(
+        [f.input_mask for f in eval_features],
+        dtype=torch.long)
+    all_segment_ids = torch.tensor(
+        [f.segment_ids for f in eval_features],
+        dtype=torch.long)
+    all_label_ids = torch.tensor(
+        [f.label_id for f in eval_features],
+        dtype=torch.long)
+    eval_data = TensorDataset(
+        all_input_ids, all_input_mask, all_segment_ids,
+        all_label_ids)
+    eval_sampler = SequentialSampler(eval_data)
+    eval_dataloader = DataLoader(
+        eval_data, sampler=eval_sampler,
+        batch_size=args.eval_batch_size)
 
     # test
     test_examples = processor.get_test_examples(args.data_dir)
@@ -472,7 +478,7 @@ def main():
                 preds.append(probs)
                 pbar.update()
 
-        output_test_file = '../zake7749/data/bert/bert.csv'
+        output_test_file = args.result_dir+'bert_'+
         preds = np.concatenate(preds, axis=0)
         df = pd.DataFrame(preds, columns=processor.get_labels())
         print(df.head())
