@@ -389,9 +389,20 @@ def main():
                 batch = tuple(t.to(device) for t in batch)
                 input_ids, input_mask, segment_ids, label_ids = batch
                 print(input_ids.shape, input_mask.shape, segment_ids.shape, label_ids.shape)
+                
+                # define a new function to compute loss values for both output_modes
+                logits = model(input_ids, segment_ids, input_mask, labels=None)
+
+                
+                loss_fct = CrossEntropyLoss()
+                loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
+                
+                    
+                '''    
                 loss, logits = model(
                     input_ids, segment_ids, input_mask, label_ids)
                 logits = logits.detach_().cpu().numpy()
+                '''
                 tmp_train_accuracy = accuracy(logits,
                                               label_ids.detach_().cpu().numpy())
                 train_accuracy += tmp_train_accuracy
