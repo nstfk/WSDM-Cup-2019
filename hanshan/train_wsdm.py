@@ -302,6 +302,7 @@ def main():
     # train
     train_features = convert_examples_to_features(
         train_examples, label_list, args.max_seq_length, tokenizer)
+    print(train_examples)
     if args.subset:
         train_features = train_features[0:args.subset]
     all_input_ids = torch.tensor([f.input_ids for f in train_features],
