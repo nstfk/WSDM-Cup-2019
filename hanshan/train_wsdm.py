@@ -483,7 +483,7 @@ def main():
         df = pd.DataFrame(preds, columns=processor.get_labels())
         print(df.head())
         df.to_csv(output_test_file, index=False)
-        logger.info('Test completed.')
+        logger.info('Test completed. Results written to',output_test_file)
 
 
 if __name__ == "__main__":
