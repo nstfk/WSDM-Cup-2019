@@ -283,7 +283,7 @@ class MnliProcessor(DataProcessor):
             if set_type == "test":
                 label = "contradiction"
             else:
-                label = line[1]
+                label = line[-1]
       
             examples.append(
                 InputExample(guid=guid, text_a=text_a, text_b=text_b,
