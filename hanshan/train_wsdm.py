@@ -388,6 +388,7 @@ def main():
                                               desc="Iteration")):
                 batch = tuple(t.to(device) for t in batch)
                 input_ids, input_mask, segment_ids, label_ids = batch
+                print(input_ids.shape, input_mask.shape, segment_ids.shape, label_ids.shape)
                 loss, logits = model(
                     input_ids, segment_ids, input_mask, label_ids)
                 logits = logits.detach().cpu().numpy()
