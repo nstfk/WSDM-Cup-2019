@@ -478,7 +478,7 @@ def main():
                 preds.append(probs)
                 pbar.update()
 
-        output_test_file = args.result_dir+'bert_'+
+        output_test_file = args.result_dir
         preds = np.concatenate(preds, axis=0)
         df = pd.DataFrame(preds, columns=processor.get_labels())
         print(df.head())
