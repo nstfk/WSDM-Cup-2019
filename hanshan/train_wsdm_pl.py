@@ -94,7 +94,13 @@ def main():
                         required=True,
                         help="The output directory where the model "
                              "checkpoints will be written.")
-
+    
+    parser.add_argument("--resume_train_dir",
+                        default=None,
+                        type=str,
+                        required=True,
+                        help="The directory where the last trained model "
+                             "checkpoints exist.")
     # Other parameters
     parser.add_argument('--resume',
                         default=False,
@@ -273,7 +279,7 @@ def main():
         model = torch.nn.DataParallel(model)
 
     # For resuming training
-    saver = Saver(ckpt_dir='../zake7749/data/bert/reproduce_bert')
+    saver = Saver(ckpt_dir=args.resume_train_dir)
     # definitely load KZ's weights now
     saver.load(model, 'PseudoFirstLevel', False, load_optimizer=False)
     # reset the saver to save in the new location
