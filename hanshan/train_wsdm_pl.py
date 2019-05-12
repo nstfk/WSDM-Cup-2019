@@ -27,6 +27,7 @@ def tune(model, epoch, eval_dataloader, device, saver, run_name, tune_losses,
     eval_loss, eval_acc = 0, 0
     nb_eval_steps, nb_eval_examples = 0, 0
     probs = []
+    print(len(eval_dataloader))
     with tqdm(total=len(eval_dataloader), desc='Eval') as pbar:
         for batch in eval_dataloader:
             batch = tuple(t.to(device) for t in batch)
@@ -37,7 +38,9 @@ def tune(model, epoch, eval_dataloader, device, saver, run_name, tune_losses,
             nb_eval_examples += label_ids.size(0)
             eval_loss += loss.mean().item()
             labels = label_ids.max(dim=1)[1]
+            print(labels)
             preds = logits.max(dim=1)[1]
+            print(preds)
             if save_preds:
                 _probs = F.softmax(logits, dim=1).detach().cpu().numpy()
                 _probs.shape = (logits.size(0), 3)
