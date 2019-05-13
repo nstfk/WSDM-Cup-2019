@@ -175,6 +175,7 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
 
     features = []
     for (ex_index, example) in enumerate(examples):
+        print(example.text_a)
         tokens_a = tokenizer.tokenize(example.text_a)
 
         tokens_b = None
